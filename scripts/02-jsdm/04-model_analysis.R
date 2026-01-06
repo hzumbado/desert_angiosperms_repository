@@ -12,15 +12,15 @@ library(tidyverse)
 
 # data --------------------------------------------------------------------
 
-read_rds('data/processed/model_data.rds') %>%
+read_rds('data/processed/jsdm/jsdm_model_data.rds') %>%
   list2env(.GlobalEnv)
 
 # switch between annuals and perennials to get two models
 # Here model for annuals
 
 Y <-
-  read_rds('output/models/annual_species_data.rds') %>%
-  #read_rds('output/models/perennial_species_data.rds') %>%
+  #read_rds('output/models/jsdm/annual_species_data.rds') %>%
+  read_rds('output/models/jsdm/perennial_species_data.rds') %>%
   pluck('Y')
 
 # load models -------------------------------------------------------------
@@ -32,8 +32,8 @@ transient <- round(0.5*samples*thin)
 
 filename <-
   paste0(
-    'output/models/model_annual_chains_',
-     #'output/models/model_perennial_chains_',
+    #'output/models/jsdm/model_annual_chains_',
+    'output/models/jsdm/model_perennial_chains_',
     as.character(nChains),
     '_samples_',
     as.character(samples),
@@ -46,6 +46,8 @@ filename <-
 
 models <- #change for 2 and 3 respectively
   read_rds(filename)
+
+# # change for 2 and 3 for m2 and m3 respectively
 
 mpost <-
   convertToCodaObject(
@@ -82,9 +84,9 @@ model_settings <-
   bind_rows(m2) %>%
   bind_rows(m3)
 
-model_settings
-  write_csv('output/tables/annual_model_fit.csv')
-  #write_csv('output/tables/perennial_model_fit.csv')
+model_settings %>%
+  write_csv('output/tables/jsdm/annual_model_fit.csv')
+  #write_csv('output/tables/jsdm/perennial_model_fit.csv')
 
 # species metrics ---------------------------------------------------------
 
@@ -101,24 +103,28 @@ mf_df <-
 # save model species fit --------------------------------------------------
 
 mf_df %>%
-  write_csv('output/tables/annual_model_results.csv')
-  # write_csv('output/tables/perennial_model_results.csv')
+  write_csv('output/tables/jsdm/annual_model_results.csv')
+  #write_csv('output/tables/jsdm/perennial_model_results.csv')
 
 # representative species --------------------------------------------------
 
-# anual representative species (best AUC)
+# annual representative species (best AUC)
 
 annual_10 <-
   mf_df %>%
   slice_max(AUC, n = 10) %>%
+  pull(species) %>%
   write_rds('data/processed/jsdm/annual_10.rds')
 
-# perennial_10 <-
-#   mf_df %>%
-#   slice_max(AUC, n = 10) %>%
+perennial_10 <-
+  mf_df %>%
+  slice_max(AUC, n = 10) %>%
+  pull(species) %>%
 #   write_rds('data/processed/jsdm/perennial_10.rds')
 
 # sdm species ----------------------------------------------------------------
+
+# will be used in section 3 SDMs
 
 mf_df %>%
   slice_max(AUC, n = 10) %>%

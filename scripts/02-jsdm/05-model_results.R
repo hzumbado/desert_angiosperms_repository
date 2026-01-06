@@ -9,29 +9,26 @@ rm(list = ls())
 
 library(Hmsc)
 library(tidyverse)
-#library(RColorBrewer)
 
 # data --------------------------------------------------------------------
 
-read_rds('data/processed/model_data.rds') %>%
+read_rds('data/processed/jsdm/jsdm_model_data.rds') %>%
   list2env(.GlobalEnv)
 
 # switch between annuals and perennials to get two models
 # Here model for annuals
 
 Y <-
-  read_rds('output/models/annual_species_data.rds') %>%
-  #read_rds('output/models/perennial_species_data.rds') %>%
+  #read_rds('output/models/jsdm/annual_species_data.rds') %>%
+  read_rds('output/models/perennial_species_data.rds') %>%
   pluck('Y')
 
 annual_10 <-
-  read_rds('data/processed/annual_10.rds')
+  read_rds('data/processed/jsdm/annual_10.rds') %>%
+  pull(species)
 
-# perennial_10 <-
-#   read_rds('data/processed/perennial_10.rds')
-
-# perennial_10 %>%
-#   sort()
+perennial_10 <-
+  read_rds('data/processed/jsdm/perennial_10.rds')
 
 # load models -------------------------------------------------------------
 
@@ -42,8 +39,8 @@ transient <- round(0.5*samples*thin)
 
 filename <-
   paste0(
-    'output/models/model_annual_chains_',
-    #'output/models/model_perennial_chains_',
+    #'output/models/jsdm/model_annual_chains_',
+    'output/models/jsdm/model_perennial_chains_',
     as.character(nChains),
     '_samples_',
     as.character(samples),
@@ -96,7 +93,7 @@ psrf.beta$psrf_beta %>%
 ess.beta %>%
   bind_cols(psrf.beta)
 
-diag_all2 <-
+diag_all <-
   ggpubr::ggarrange(
     ggplot(
       ess.beta,
@@ -128,8 +125,8 @@ diag_all2 <-
 
 ggsave(
   diag_all,
-  filename = 'output/figures/geldman_ess_m1_annual.jpg',
-  #filename = 'output/figures/geldman_ess_m1_perennial.jpg',
+  #filename = 'output/figures/geldman_ess_m1_annual.jpg',
+  filename = 'output/figures/geldman_ess_m1_perennial.jpg',
   width = 5.5,
   height = 3.5,
   bg = 'white')
@@ -148,8 +145,8 @@ vp_df <-
     values_to = 'value') %>%
   na.omit() %>%
   arrange(species) %>%
-  filter(species %in% annual_10) %>%
-  #filter(species %in% perennial_10) %>%
+  #filter(species %in% annual_10) %>%
+  filter(species %in% perennial_10) %>%
   mutate(
     species = species %>%
       str_replace('_', ' '))
@@ -226,8 +223,8 @@ vp <-
 vp
 
 ggsave(
-  filename = 'output/figures/variance_annual_occurrence.png',
-  #filename = 'output/figures/variance_perennial_occurrence.png',
+  #filename = 'output/figures/variance_annual_occurrence.png',
+  filename = 'output/figures/variance_perennial_occurrence.png',
   height = 10,
   width = 15)
 
@@ -260,8 +257,8 @@ pred_df_ff <-
     cols = !c(reg,run),
     values_to = 'occurrence',
     names_to = 'species') %>%
-  filter(species %in% annual_10) %>%
-  #filter(species %in% perennial_10) %>%
+  #filter(species %in% annual_10) %>%
+  filter(species %in% perennial_10) %>%
   mutate(species = species %>%
            str_replace('_', ' ')) %>%
   mutate(
@@ -317,8 +314,8 @@ reg_native
 
 ggsave(
   reg_native,
-  filename = 'output/figures/annual_gradient_reg.png',
-  #filename = 'output/figures/perennial_gradient_reg.png',
+  #filename = 'output/figures/annual_gradient_reg.png',
+  filename = 'output/figures/perennial_gradient_reg.png',
   width = 20,
   height = 10)
 
@@ -327,24 +324,9 @@ ggsave(
 OmegaCor <-
   computeAssociations(best_model)
 
-# supportLevel <- 0.89
-#
-# toPlot <-
-#   ((OmegaCor[[1]]$support > supportLevel) +
-#      (OmegaCor[[1]]$support < (1 - supportLevel)) > 0) *
-#   OmegaCor[[1]]$mean
-#
-# toPlot_p <-
-#   ((OmegaCor[[1]]$support > supportLevel) +
-#      (OmegaCor[[1]]$support < (1 - supportLevel)) > 0) *
-#   OmegaCor[[1]]$support
-
 hmdf_mean <-
   OmegaCor[[1]]$mean %>%
-  as.data.frame() %>%
-  select(all_of(annual_10))
-
-hmdf_mean <- hmdf_mean[annual_10,]
+  as.data.frame()
 
 # as.matrix
 
@@ -357,7 +339,7 @@ omega_plot <-
 
 ggsave(
   omega_plot,
-  # filename = 'output/figures/species_associations_annual.jpg',
+  #filename = 'output/figures/species_associations_annual.jpg',
   filename = 'output/figures/species_associations_perennial.jpg',
   bg = 'white',
   width = 18,
@@ -365,27 +347,33 @@ ggsave(
 
 # extract species ---------------------------------------------------------
 
+# Annual
+
 sp <-
   "Achyronychia_cooperi"
    #"Antirrhinum_filipes"
+   #"Cistanthe_ambigua"
    #"Camissoniopsis_pallida"
    #"Caulanthus_lasiophyllus"
-   #"Cistanthe_ambigua"
    #"Eremothera_boothii"
    #"Langloisia_setosissima"
    #"Logfia_depressa"
    #"Nemacladus_glanduliferus"
    #"Oligomeris_linifolia",
-   #"Agave_deserti"
-   #"Atriplex_hymenelytra"
-   #"Cylindropuntia_ganderi"
-   #"Ericameria_linearifolia"
-   #"Galium_stellatum"
-   #"Hesperoyucca_whipplei"
-   #"Krameria_bicolor"
-   #"Larrea_tridentata"
-   #"Penstemon_centranthifolius"
-   #"Psorothamnus_schottii"
+
+# perennials
+
+# sp <-
+  #"Agave_deserti"
+  #"Atriplex_hymenelytra"
+  #"Cylindropuntia_ganderi"
+  #"Ericameria_linearifolia"
+  #"Galium_stellatum"
+  #"Hesperoyucca_whipplei"
+  #"Krameria_bicolor"
+  #"Larrea_tridentata"
+  #"Penstemon_centranthifolius"
+  #"Psorothamnus_schottii"
 
 # species that correlate more than 80%
 

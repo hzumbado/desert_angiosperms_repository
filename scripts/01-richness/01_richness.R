@@ -149,7 +149,7 @@ grid_counts_sf %>%
 
 grid_counts_sf %>%
   st_drop_geometry() %>%
-  write_csv('data/processed/glm_data.csv')
+  write_csv('data/processed/richness/glm_data.csv')
 
 # invasives----------------------------------------------------------------
 
@@ -249,8 +249,6 @@ richness_plot2 <-
       element_text(size = 12, colour = 'black'),
     axis.title.y = element_text(size = 14),
     axis.title.x = element_blank())
-
-
 
 cowplot::plot_grid(
   richness_plot1,
@@ -383,7 +381,6 @@ tmap_save(
   map_richness,
   'output/figures/maps_richness.jpg')
 
-
 # map hotspots ------------------------------------------------------------
 
 map_hotspots <-
@@ -419,7 +416,6 @@ map_hotspots <-
     labels = 'Coldspot',
     position = c('left', 'bottom')) +
   tm_layout(legend.text.size = 1)
-
 
 tmap_save(
   map_hotspots,

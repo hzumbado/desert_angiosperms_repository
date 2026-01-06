@@ -12,7 +12,7 @@ library(Hmsc)
 
 # data --------------------------------------------------------------------
 
-read_rds('data/processed/model_data.rds') %>%
+read_rds('data/processed/jsdm/jsdm_model_data.rds') %>%
   list2env(.GlobalEnv)
 
 # switch between annuals and perennials to get two models
@@ -67,7 +67,7 @@ list(
   model_species = model_species,
   Y = Y) %>%
   write_rds('output/models/jsdm/annual_species_data.rds')
-  #write_rds('output/models/perennial_species_data.rds')
+  #write_rds('output/models/jsdm/perennial_species_data.rds')
 
 Y %>%
   as.data.frame() %>%
@@ -75,13 +75,16 @@ Y %>%
   pivot_longer(
     1:100,
     names_to = 'species') %>%
-  mutate(species = str_replace(species, '_', ' ')) %>%
+  mutate(
+    species =
+      str_replace(
+        species,
+        '_',
+        ' ')) %>%
   arrange(species) %>%
   distinct(species) %>%
-  write_csv('output/tables/annuals.csv')
-  #write_csv('output/tables/perennials.csv')
-
-
+  write_csv('output/tables/jsdm/annuals.csv')
+  #write_csv('output/tables/jsdm/perennials.csv')
 
 # model data --------------------------------------------------------------
 
@@ -178,8 +181,8 @@ models <-
 
 filename <-
   paste0(
-    'output/models/model_annual_chains_',
-    #'output/models/model_perennial_chains_',
+    'output/models/jsdm/model_annual_chains_',
+    #'output/models/jsdm/model_perennial_chains_',
     as.character(nChains),
     '_samples_',
     as.character(samples),

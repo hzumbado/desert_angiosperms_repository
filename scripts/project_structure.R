@@ -2,15 +2,19 @@
 
 folders <-
   c('data/raw',
-    'data/processed',
+    'data/processed/richness',
+    'data/processed/jsdm',
+    'data/processed/sdm',
     'shapefiles',
     'rasters',
-    'scripts/richness',
-    'scripts/jsdms',
-    'scripts/sdms',
+    'scripts/01-richness',
+    'scripts/02-jsdm',
+    'scripts/03-sdm',
     'output/figures',
-    'output/jsdms/',
-    'output/sdms')
+    'output/models/jsdm',
+    'output/models/sdm',
+    'output/tables/jsdm',
+    'output/tables/sdm')
 
 sapply(
   folders,
