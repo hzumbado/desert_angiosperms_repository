@@ -102,7 +102,7 @@ License
 
 Data: [e.g., CC-BY 4.0]
 
-Code: [e.g., MIT License]
+Code: GNU GENERAL PUBLIC LICENSE Version 3
 
 License details are provided within the Zenodo record and the associated GitHub repository.
 
