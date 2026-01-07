@@ -34,11 +34,11 @@ list.files(
 # data --------------------------------------------------------------------
 
 plots_native <-
-  read_rds('data/raw/cv_plots_updated.rds') %>%
+  read_rds('data/raw/richness/cv_plots_updated.rds') %>%
   pluck('plot_native')
 
 plots_invasive <-
-  read_rds('data/raw/cv_plots_updated.rds') %>%
+  read_rds('data/raw/richness/cv_plots_updated.rds') %>%
   pluck('plot_invasive')
 
 # 5 more abundant native species
@@ -194,7 +194,7 @@ richness_plot1 <-
     y = richness,
     col = Region,
     fill = Region)) +
-  geom_boxplot(
+  geom_violin(
     show.legend = FALSE,
     col = 'black',
     linewidth = 0.75)  +
@@ -227,7 +227,7 @@ richness_plot2 <-
     y = abundance,
     col = Region,
     fill = Region)) +
-  geom_boxplot(
+  geom_violin(
     show.legend = FALSE,
     col = 'black',
     linewidth = 0.75)  +

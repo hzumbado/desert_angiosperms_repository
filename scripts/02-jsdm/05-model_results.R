@@ -19,16 +19,15 @@ read_rds('data/processed/jsdm/jsdm_model_data.rds') %>%
 # Here model for annuals
 
 Y <-
-  #read_rds('output/models/jsdm/annual_species_data.rds') %>%
-  read_rds('output/models/perennial_species_data.rds') %>%
+  read_rds('output/models/jsdm/annual_species_data.rds') %>%
+  #read_rds('output/models/perennial_species_data.rds') %>%
   pluck('Y')
 
 annual_10 <-
-  read_rds('data/processed/jsdm/annual_10.rds') %>%
-  pull(species)
+  read_rds('data/processed/jsdm/annual_10.rds')
 
-perennial_10 <-
-  read_rds('data/processed/jsdm/perennial_10.rds')
+# perennial_10 <-
+#   read_rds('data/processed/jsdm/perennial_10.rds')
 
 # load models -------------------------------------------------------------
 
@@ -39,8 +38,8 @@ transient <- round(0.5*samples*thin)
 
 filename <-
   paste0(
-    #'output/models/jsdm/model_annual_chains_',
-    'output/models/jsdm/model_perennial_chains_',
+    'output/models/jsdm/model_annual_chains_',
+    #'output/models/jsdm/model_perennial_chains_',
     as.character(nChains),
     '_samples_',
     as.character(samples),
@@ -125,8 +124,8 @@ diag_all <-
 
 ggsave(
   diag_all,
-  #filename = 'output/figures/geldman_ess_m1_annual.jpg',
-  filename = 'output/figures/geldman_ess_m1_perennial.jpg',
+  filename = 'output/figures/geldman_ess_m1_annual.jpg',
+  #filename = 'output/figures/geldman_ess_m1_perennial.jpg',
   width = 5.5,
   height = 3.5,
   bg = 'white')
@@ -145,8 +144,8 @@ vp_df <-
     values_to = 'value') %>%
   na.omit() %>%
   arrange(species) %>%
-  #filter(species %in% annual_10) %>%
-  filter(species %in% perennial_10) %>%
+  filter(species %in% annual_10) %>%
+  #filter(species %in% perennial_10) %>%
   mutate(
     species = species %>%
       str_replace('_', ' '))
@@ -223,8 +222,8 @@ vp <-
 vp
 
 ggsave(
-  #filename = 'output/figures/variance_annual_occurrence.png',
-  filename = 'output/figures/variance_perennial_occurrence.png',
+  filename = 'output/figures/variance_annual_occurrence.png',
+  #filename = 'output/figures/variance_perennial_occurrence.png',
   height = 10,
   width = 15)
 
@@ -257,8 +256,8 @@ pred_df_ff <-
     cols = !c(reg,run),
     values_to = 'occurrence',
     names_to = 'species') %>%
-  #filter(species %in% annual_10) %>%
-  filter(species %in% perennial_10) %>%
+  filter(species %in% annual_10) %>%
+  #filter(species %in% perennial_10) %>%
   mutate(species = species %>%
            str_replace('_', ' ')) %>%
   mutate(
@@ -314,8 +313,8 @@ reg_native
 
 ggsave(
   reg_native,
-  #filename = 'output/figures/annual_gradient_reg.png',
-  filename = 'output/figures/perennial_gradient_reg.png',
+  filename = 'output/figures/annual_gradient_reg.png',
+  #filename = 'output/figures/perennial_gradient_reg.png',
   width = 20,
   height = 10)
 
@@ -339,8 +338,8 @@ omega_plot <-
 
 ggsave(
   omega_plot,
-  #filename = 'output/figures/species_associations_annual.jpg',
-  filename = 'output/figures/species_associations_perennial.jpg',
+  filename = 'output/figures/species_associations_annual.jpg',
+  #filename = 'output/figures/species_associations_perennial.jpg',
   bg = 'white',
   width = 18,
   height = 18)
