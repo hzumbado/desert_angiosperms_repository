@@ -16,6 +16,7 @@ library(tidyverse)
 
 models <- 'output/models/sdm/files/'
 predictions <- 'output/models/sdm/predictions/'
+present <- 'output/models/sdm/predictions/present/'
 
 # Species data ------------------------------------------------------------
 
@@ -73,7 +74,7 @@ occs <-
 
 preds <-
   list.files(
-    predictions,
+    present,
     full.names = TRUE,
     pattern = '.tif') %>%
   map(

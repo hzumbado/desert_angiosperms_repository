@@ -1,7 +1,7 @@
 # Patterns of angiosperm richness
 # Section 03b modeling
 # SDMs
-# Script 05 ESH estimation
+# Script 07d Stacked maps and ESH estimation
 
 # setup -------------------------------------------------------------------
 
@@ -15,9 +15,7 @@ library(tidyverse)
 # folders -----------------------------------------------------------------
 
 predictions <- 'output/models/sdm/predictions/average/'
-binary <- 'output/models/sdm/binary/present/clamped_preds/'
-binary2 <- 'output/models/sdm/binary/present/polygons/'
-models <- 'output/models/sdm/files/'
+binary <- 'output/models/sdm/binary/future/polygons/'
 
 # Species data ------------------------------------------------------------
 
@@ -62,33 +60,26 @@ list.files(
 
 # raster ------------------------------------------------------------------
 
+layer_names <-
+  list.files(
+    predictions,
+    pattern = 'x10',
+    full.names = FALSE)
+
 x10_raster <-
   list.files(
-    binary,
-    pattern = '.tif$',
+    predictions,
+    pattern = 'x10',
     full.names = TRUE) %>%
   map(
     ~.x %>%
       rast()) %>%
-  set_names(my_species) %>%
-  rast() %>%
-  sum()
+  set_names(layer_names)
 
-x10_raster %>%
-  writeRaster(
-    paste0(
-      predictions,
-      'stacked_x10_present.tif'),
-    overwrite = TRUE)
-
-# x10_raster <-
-#   rast(
-#     paste0(
-#       predictions,
-#       'stacked_x10_126.tif'))
+# switch between SSPs
 
 map <-
-  x10_raster %>%
+  x10_raster$stacked_x10_585.tif %>%
   tm_shape() +
   tm_raster(
     col.scale = tm_scale_continuous(
@@ -105,19 +96,26 @@ map <-
   tm_shape(cv_25) +
   tm_borders()
 
-map %>%
-  tmap_save('output/figures/stacked_present.png')
+# map %>%
+#   tmap_save('output/figures/stacked_present.png')
+#
+# map %>%
+#   tmap_save('output/figures/stacked_126.jpg')
+#
+# map %>%
+#   tmap_save('output/figures/stacked_245.jpg')
 
 map %>%
   tmap_save('output/figures/stacked_585.jpg')
 
-
 # area x10 ----------------------------------------------------------------
+
+# switch between SSPs
 
 bin_pol <-
   list.files(
-    binary2,
-    pattern = '.gpkg$',
+    binary,
+    pattern = '_126', # swich here between 1-2.6 and 2-4.5
     full.names = TRUE) %>%
   map(
     ~ .x %>%
@@ -129,21 +127,56 @@ esh <-
   bin_pol %>%
   map(
     ~.x %>%
-  st_area() %>%
-  units::set_units('km^2')) %>%
+      st_area() %>%
+      units::set_units('km^2')) %>%
   as_tibble() %>%
-  pivot_longer(cols = 1:20,
-               names_to = 'species',
-               values_to = 'area')
+  pivot_longer(
+    cols = 1:20,
+    names_to = 'species',
+    values_to = 'area')
 
 esh %>%
-  write_csv('output/tables/sdm/esh_present.csv')
+  write_csv('output/tables/sdm/esh_126.csv')
+
+esh %>%
+  write_csv('output/tables/sdm/esh_245.csv')
+
+# for 5.85 0 km2 for Penstemon_centranthifolius
+
+bin_pol <-
+  list.files(
+    binary,
+    pattern = '_585', # swich here.
+    full.names = TRUE) %>%
+  map(
+    ~ .x %>%
+      read_sf() %>%
+      st_make_valid()) %>%
+  set_names(my_species)
+
+bin_pol$Penstemon_centranthifolius <- NULL
+
+esh <-
+  bin_pol %>%
+  map(
+    ~.x %>%
+      st_area() %>%
+      units::set_units('km^2')) %>%
+  as_tibble() %>%
+  pivot_longer(
+    cols = 1:19,
+    names_to = 'species',
+    values_to = 'area')
+
+esh %>%
+  write_csv('output/tables/sdm/esh_585.csv')
 
 # suitability by species number
+# switch between SSPs
 # all calibration area
 
 a <-
-  x10_raster %>%
+  x10_raster$stacked_x10_585.tif %>%
   as.polygons() %>%
   st_as_sf() %>%
   st_area() %>%
@@ -153,7 +186,7 @@ a <-
 # only Coachella Valley
 
 a_cv <-
-  x10_raster %>%
+  x10_raster$stacked_x10_585.tif %>%
   as.polygons() %>%
   crop(vect(cv)) %>%
   st_as_sf() %>%
@@ -184,9 +217,9 @@ areapol <-
 
 # all calibration area
 
-(x10_areas <- areapol(x10_raster))
+(x10_areas <- areapol(x10_raster$stacked_x10_585.tif))
 
 # only Coachella Valley
 
-(x10_areas <- areapol(x10_raster %>% crop(vect(cv))))
+(x10_areas <- areapol(x10_raster$stacked_x10_585.tif %>% crop(vect(cv))))
 

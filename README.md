@@ -72,9 +72,40 @@ terra — spatial raster processing
 
 sf — vector-based spatial analysis
 
-
-
 Exact package versions can be retrieved by running sessionInfo() in R.
+
+Present and Future Climate Scenarios
+
+All present and future climate datasets (19 bioclimatic variables) were obtained from WorldClim version 2.1, at a spatial resolution of 30 arc-seconds (~1 km at the equator):
+
+present: https://www.worldclim.org/data/worldclim21.html
+future: https://www.worldclim.org/data/cmip6/cmip6_clim30s.html
+
+Future climate projections were derived from CMIP6 downscaled climate datasets and were used to model potential future shifts in angiosperm species distributions.
+
+Specifically:
+
+Shared Socio-economic Pathways (SSPs):
+
+SSP1–2.6 (SSP126)
+
+SSP2–4.5 (SSP245)
+
+SSP5–8.5 (SSP585)
+
+Time period: 2081–2100
+
+Global Circulation Models (GCMs):
+
+ACCESS-CM2
+
+EC-Earth3-Veg
+
+HadGEM3-GC31-LL
+
+For each SSP, climatic variables were averaged across the three GCMs to reduce uncertainty associated with individual model projections.
+
+Details on variable selection, processing, and aggregation are provided within the metadata files and associated R scripts.
 
 Reproducibility
 

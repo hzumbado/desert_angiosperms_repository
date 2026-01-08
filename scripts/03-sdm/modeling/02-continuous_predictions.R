@@ -17,7 +17,7 @@ library(tidyverse)
 
 processed <- 'data/processed/sdm/'
 models <- 'output/models/sdm/files/'
-predictions <- 'output/models/sdm/predictions/'
+predictions <- 'output/models/sdm/predictions/present/'
 
 # shapefiles --------------------------------------------------------------
 

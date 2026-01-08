@@ -13,7 +13,7 @@ library(tidyverse)
 
 # folders -----------------------------------------------------------------
 
-predictions <- 'output/models/sdm/predictions/'
+predictions <- 'output/models/sdm/predictions/present/'
 binary_1 <- 'output/models/sdm/binary/present/polygons/'
 binary_2 <- 'output/models/sdm/binary/present/clamped_preds/'
 models <- 'output/models/sdm/files/'
