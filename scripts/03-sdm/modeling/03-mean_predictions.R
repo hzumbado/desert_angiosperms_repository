@@ -110,4 +110,4 @@ points(
   pch = 19,
   cex = 0.5,
   border = 'black',
-  col = c("red", "green", "blue"))
+  col = c('red', 'green', 'blue'))

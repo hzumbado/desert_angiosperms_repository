@@ -76,7 +76,7 @@ x10 <-
     ~ .x %>%
       filter(
         parameter ==
-          "X10.percentile.training.presence.Cloglog.threshold") %>%
+          'X10.percentile.training.presence.Cloglog.threshold') %>%
       dplyr::select(value) %>%
       pull()) %>%
   as_vector()

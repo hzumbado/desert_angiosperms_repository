@@ -214,10 +214,10 @@ vp <-
     legend.text = ggtext::element_markdown(),
     legend.justification = c(0.5,0),
     legend.background = element_rect(color = 'black'),
-    legend.key.size = unit(0.5, "cm"), # Adjust the overall key size
-    legend.key.width = unit(0.25, "cm"), # Adjust key width
-    legend.key.height = unit(0.25, "cm"))
-    #legend.position = "none")
+    legend.key.size = unit(0.5, 'cm'), # Adjust the overall key size
+    legend.key.width = unit(0.25, 'cm'), # Adjust key width
+    legend.key.height = unit(0.25, 'cm'))
+    #legend.position = 'none')
 
 vp
 
@@ -349,30 +349,30 @@ ggsave(
 # Annual
 
 sp <-
-  "Achyronychia_cooperi"
-   #"Antirrhinum_filipes"
-   #"Cistanthe_ambigua"
-   #"Camissoniopsis_pallida"
-   #"Caulanthus_lasiophyllus"
-   #"Eremothera_boothii"
-   #"Langloisia_setosissima"
-   #"Logfia_depressa"
-   #"Nemacladus_glanduliferus"
-   #"Oligomeris_linifolia",
+  'Achyronychia_cooperi'
+   #'Antirrhinum_filipes'
+   #'Cistanthe_ambigua'
+   #'Camissoniopsis_pallida'
+   #'Caulanthus_lasiophyllus'
+   #'Eremothera_boothii'
+   #'Langloisia_setosissima'
+   #'Logfia_depressa'
+   #'Nemacladus_glanduliferus'
+   #'Oligomeris_linifolia',
 
 # perennials
 
 # sp <-
-  #"Agave_deserti"
-  #"Atriplex_hymenelytra"
-  #"Cylindropuntia_ganderi"
-  #"Ericameria_linearifolia"
-  #"Galium_stellatum"
-  #"Hesperoyucca_whipplei"
-  #"Krameria_bicolor"
-  #"Larrea_tridentata"
-  #"Penstemon_centranthifolius"
-  #"Psorothamnus_schottii"
+  #'Agave_deserti'
+  #'Atriplex_hymenelytra'
+  #'Cylindropuntia_ganderi'
+  #'Ericameria_linearifolia'
+  #'Galium_stellatum'
+  #'Hesperoyucca_whipplei'
+  #'Krameria_bicolor'
+  #'Larrea_tridentata'
+  #'Penstemon_centranthifolius'
+  #'Psorothamnus_schottii'
 
 # species that correlate more than 80%
 

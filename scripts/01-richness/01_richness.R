@@ -198,7 +198,7 @@ richness_plot1 <-
     show.legend = FALSE,
     col = 'black',
     linewidth = 0.75)  +
-  scale_fill_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = 'Set1') +
   scale_x_discrete(
     labels = c(
       'Colorado desert' = 'Colorado Desert',
@@ -231,7 +231,7 @@ richness_plot2 <-
     show.legend = FALSE,
     col = 'black',
     linewidth = 0.75)  +
-  scale_fill_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = 'Set1') +
   scale_y_continuous(
     expand = c(0,0), limits = c(0, 2000)) +
   labs(

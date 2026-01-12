@@ -74,14 +74,14 @@ mop_ssps <-
 
 plot(
   mop_ssps$future_126,
-  main = "MOP – SSP126")
+  main = 'MOP – SSP126')
 
 extrap_summary <-
   mop_ssps %>%
   imap_dfr(~ {
     vals <- values(.x, mat = FALSE)
     tibble(
-      ssp = paste0("SSP", .y),
+      ssp = paste0('SSP', .y),
       total_pixels =
         sum(!is.na(vals)),
       strict_extrap_pixels =
@@ -95,7 +95,7 @@ strict_map_585 <- mop_ssps$future_585 == 0
 
 plot(
   strict_map_126,
-  main = "Strict extrapolation – SSP126")
+  main = 'Strict extrapolation – SSP126')
 
 # map ---------------------------------------------------------------------
 

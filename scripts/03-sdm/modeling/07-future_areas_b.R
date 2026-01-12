@@ -66,7 +66,7 @@ x10 <-
   rename_all(., .funs = tolower) %>%
   filter(
     parameter ==
-      "X10.percentile.training.presence.Cloglog.threshold") %>%
+      'X10.percentile.training.presence.Cloglog.threshold') %>%
   dplyr::select(value) %>%
   pull()
 
@@ -115,7 +115,7 @@ future_preds_x10 %>%
       .,
       '_',
       species,
-      "_x10.tif"),
+      '_x10.tif'),
     overwrite = TRUE))
 
 plot(future_preds$future_585)
@@ -139,7 +139,7 @@ future_preds_bin %>%
       .,
       '_',
       species,
-      ".gpkg"),
+      '.gpkg'),
     overwrite = TRUE))
 
 plot(future_preds_x10$future_585)

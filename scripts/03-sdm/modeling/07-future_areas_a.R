@@ -77,7 +77,7 @@ future_preds <-
     ~ .x %>%
       terra::predict(
         best_model,
-        args = c("outputformat=logistic"),
+        args = c('outputformat=logistic'),
         na.rm = T)) %>%
   set_names(layer_names)
 
@@ -96,5 +96,5 @@ future_preds %>%
       .,
       '_',
       species,
-      ".tif"),
+      '.tif'),
     overwrite = TRUE))

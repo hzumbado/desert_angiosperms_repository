@@ -44,7 +44,7 @@ my_species <-
 bin_pol <-
   list.files(
     polygons,
-    pattern = "gpkg",
+    pattern = 'gpkg',
     full.names = TRUE) %>%
   map(
     ~ .x %>%

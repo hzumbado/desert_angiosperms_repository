@@ -77,7 +77,7 @@ range_map <-
   predicts::predict(
     best_model,
     envs,
-    args = c("outputformat=logistic")) %>%
+    args = c('outputformat=logistic')) %>%
   mask(salton, inverse = TRUE)
 
 names(range_map) <- 'Suitability'
@@ -98,11 +98,11 @@ range_map %>%
   tm_raster(
     col.scale =
       tm_scale_continuous(
-        values = "brewer.blues",
+        values = 'brewer.blues',
         limits = c(0, 1)),
     col.legend =
       tm_legend(,
-        bg.color = "gray",
+        bg.color = 'gray',
         bg.alpha = 0.5,
         reverse = TRUE,
         orientation = 'landscape')) +

@@ -81,5 +81,5 @@ envs_cropped %>%
   names(.) %>%
   walk(~ writeRaster(
     envs_cropped[[.]],
-    paste0('rasters/', ., ".tif"),
+    paste0('rasters/', ., '.tif'),
     overwrite = TRUE))

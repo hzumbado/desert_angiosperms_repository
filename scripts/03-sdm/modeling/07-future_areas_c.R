@@ -107,7 +107,7 @@ species <-
 bin_pol <-
   list.files(
     polygons,
-    pattern = "gpkg",
+    pattern = 'gpkg',
     full.names = TRUE) %>%
   map(
     ~ .x %>%
@@ -139,7 +139,7 @@ future_preds_x10 %>%
       .,
       '_',
       species,
-      "_x10.tif"),
+      '_x10.tif'),
     overwrite = TRUE))
 
 future_preds_bin <-
@@ -159,7 +159,7 @@ future_preds_x10 %>%
       .,
       '_',
       species,
-      ".gpkg"),
+      '.gpkg'),
     overwrite = TRUE))
 
 plot(future_preds_x10$future_585)

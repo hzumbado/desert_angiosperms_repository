@@ -152,8 +152,8 @@ measures <-
   obs = model_data[[sp]]$presence,
   pred = model_data[[sp]]$prediction,
   thresh = 'maxSSS',
-  main = "MXT",
-  measures = "TSS")
+  main = 'MXT',
+  measures = 'TSS')
 
 prev <- measures$Prevalence
 
@@ -161,7 +161,7 @@ eval <-
   measures$ThreshMeasures %>%
   as.data.frame() %>%
   rownames_to_column(
-    var = "Parameter") %>%
+    var = 'Parameter') %>%
   as_tibble() %>%
   pivot_wider(
     names_from = Parameter,
