@@ -21,6 +21,7 @@ folders <-
     'output/models/sdm/predictions/average',
     'output/models/sdm/predictions/present',
     'output/models/sdm/predictions/future',
+    'output/models/sdm/predictions/mop',
     'output/models/sdm/binary/present/polygons',
     'output/models/sdm/binary/present/clamped_preds',
     'output/models/sdm/binary/future/polygons',
