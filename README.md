@@ -1,4 +1,4 @@
-## Assessing biogeographic patterns of angiosperm richness and future species’ range shifts in desert ecosystems in southern California
+## Biogeographic patterns of angiosperm richness and projected range shifts in desert ecosystems of southern California
 
 **Authors and Affiliations**
 
@@ -18,7 +18,7 @@ Status: under review
 
 This GitHub archive supports the manuscript:
 
-Assessing biogeographic patterns of angiosperm richness and future species’ range shifts in desert ecosystems in southern California
+Biogeographic patterns of angiosperm richness and projected range shifts in desert ecosystems of southern California
 
 Overview
 
